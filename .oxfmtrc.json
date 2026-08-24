@@ -1,4 +1,70 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": []
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.astro/**",
+    "**/.intlayer/**",
+    "**/node_modules/**",
+    "**/bun.lockb"
+  ],
+  "plugins": {
+    "typescript": {
+      "indentSize": 2,
+      "quoteStyle": "single",
+      "semi": true,
+      "trailingComma": "all"
+    },
+    "svelte": {
+      "indentSize": 2,
+      "quoteStyle": "single",
+      "semi": true,
+      "trailingComma": "all"
+    },
+    "astro": {
+      "indentSize": 2,
+      "quoteStyle": "single",
+      "semi": true,
+      "trailingComma": "all"
+    },
+    "css": {
+      "indentSize": 2,
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "options": {
+        "indentSize": 2,
+        "quoteStyle": "single",
+        "semi": true,
+        "trailingComma": "all"
+      }
+    },
+    {
+      "files": ["*.svelte"],
+      "options": {
+        "indentSize": 2,
+        "quoteStyle": "single",
+        "semi": true,
+        "trailingComma": "all"
+      }
+    },
+    {
+      "files": ["*.astro"],
+      "options": {
+        "indentSize": 2,
+        "quoteStyle": "single",
+        "semi": true,
+        "trailingComma": "all"
+      }
+    },
+    {
+      "files": ["*.css"],
+      "options": {
+        "indentSize": 2,
+        "quoteStyle": "single"
+      }
+    }
+  ]
 }

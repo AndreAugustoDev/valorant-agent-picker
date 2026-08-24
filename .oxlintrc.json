@@ -1,15 +1,38 @@
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "unicorn",
-    "oxc"
-  ],
+  "plugins": [ "typescript", "import", "unicorn" ],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
   "categories": {
     "correctness": "error"
   },
-  "rules": {},
-  "env": {
-    "builtin": true
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
+    "no-unreachable": "error",
+    "no-constant-condition": "warn",
+    "eqeqeq": [ "error", "always" ],
+    "curly": [ "error", "all" ],
+    "no-console": [ "warn", { "allow": [ "warn", "error" ] } ],
+    "no-debugger": "error",
+    "sort-imports": [
+      "warn",
+      {
+        "allowSeparatedGroups": true,
+        "ignoreCase": false,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": [ "none", "all", "multiple", "single" ]
+      }
+    ],
+    "typescript/no-explicit-any": "warn",
+    "typescript/consistent-type-imports": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/prefer-query-selector": "warn",
+    "unicorn/prefer-array-flat": "error",
+    "unicorn/consistent-function-scoping": "warn"
   }
 }
