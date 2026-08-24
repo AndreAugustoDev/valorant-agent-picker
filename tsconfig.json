@@ -1,6 +1,7 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "extends": ["@tsconfig/svelte/tsconfig.json", "@tsconfig/recommended/tsconfig.json"],
+
+  "include": ["**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true
