@@ -1,5 +1,5 @@
 {
-  "plugins": [ "typescript", "import", "unicorn" ],
+  "plugins": [ "eslint", "oxc", "typescript", "unicorn", "import" ],
   "env": {
     "builtin": true,
     "browser": true,
@@ -12,12 +12,10 @@
   "rules": {
     "no-undef": "error",
     "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
-    "no-unreachable": "error",
     "no-constant-condition": "warn",
     "eqeqeq": [ "error", "always" ],
     "curly": [ "error", "all" ],
     "no-console": [ "warn", { "allow": [ "warn", "error" ] } ],
-    "no-debugger": "error",
     "sort-imports": [
       "warn",
       {
@@ -33,6 +31,7 @@
     "unicorn/prefer-node-protocol": "error",
     "unicorn/prefer-query-selector": "warn",
     "unicorn/prefer-array-flat": "error",
-    "unicorn/consistent-function-scoping": "warn"
+    "unicorn/consistent-function-scoping": "warn",
+    "import/no-cycle": [ "error", { "maxDepth": 3 } ]
   }
 }
