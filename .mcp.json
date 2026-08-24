@@ -3,10 +3,6 @@
     "dev.svelte/mcp": {
       "url": "https://mcp.svelte.dev/mcp",
       "type": "http"
-    },
-    "Astro Docs": {
-      "url": "https://mcp.docs.astro.build/mcp",
-      "type": "http"
     }
   },
   "inputs": []

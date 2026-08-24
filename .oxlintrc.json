@@ -1,21 +1,23 @@
 {
-  "plugins": [ "eslint", "oxc", "typescript", "unicorn", "import" ],
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "oxc", "typescript", "unicorn", "import"],
   "env": {
     "builtin": true,
     "browser": true,
     "node": true,
-    "es2024": true
+    "es2024": true,
+    "svelte": true
   },
   "categories": {
     "correctness": "error"
   },
   "rules": {
     "no-undef": "error",
-    "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-constant-condition": "warn",
-    "eqeqeq": [ "error", "always" ],
-    "curly": [ "error", "all" ],
-    "no-console": [ "warn", { "allow": [ "warn", "error" ] } ],
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "sort-imports": [
       "warn",
       {
@@ -23,7 +25,7 @@
         "ignoreCase": false,
         "ignoreDeclarationSort": false,
         "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": [ "none", "all", "multiple", "single" ]
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
       }
     ],
     "typescript/no-explicit-any": "warn",
@@ -32,6 +34,6 @@
     "unicorn/prefer-query-selector": "warn",
     "unicorn/prefer-array-flat": "error",
     "unicorn/consistent-function-scoping": "warn",
-    "import/no-cycle": [ "error", { "maxDepth": 3 } ]
+    "import/no-cycle": ["error", { "maxDepth": 3 }]
   }
 }

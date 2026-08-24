@@ -20,12 +20,6 @@
       "semi": true,
       "trailingComma": "all"
     },
-    "astro": {
-      "indentSize": 2,
-      "quoteStyle": "single",
-      "semi": true,
-      "trailingComma": "all"
-    },
     "css": {
       "indentSize": 2,
       "quoteStyle": "single"
@@ -43,15 +37,6 @@
     },
     {
       "files": ["*.svelte"],
-      "options": {
-        "indentSize": 2,
-        "quoteStyle": "single",
-        "semi": true,
-        "trailingComma": "all"
-      }
-    },
-    {
-      "files": ["*.astro"],
       "options": {
         "indentSize": 2,
         "quoteStyle": "single",

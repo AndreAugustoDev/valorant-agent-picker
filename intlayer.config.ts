@@ -4,10 +4,19 @@ const config: IntlayerConfig = {
   internationalization: {
     locales: [
       //
-      Locales.ENGLISH,
+      Locales.ENGLISH_UNITED_STATES,
       Locales.PORTUGUESE_BRAZIL,
     ],
-    defaultLocale: Locales.ENGLISH,
+    defaultLocale: Locales.ENGLISH_UNITED_STATES,
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+    ],
   },
 };
 

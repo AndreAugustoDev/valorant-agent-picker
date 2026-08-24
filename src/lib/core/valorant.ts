@@ -1,62 +1,106 @@
-// --- Domain Types (Clean) ---
-export type Role = 'Duelista' | 'Controlador' | 'Sentinela' | 'Iniciador';
+import type { AgentResponse } from "@valpro-labs/valorant-api";
+
+export type Role = AgentResponse["role"]["displayName"];
 
 export interface Agent {
   id: string;
   name: string;
   role: Role;
-  imgUrl: string;
+  icon: string;
+  image: string;
+  portrait: string;
   color: string;
 }
 
-// --- Raw API Types (Dirty/External) ---
-export interface RawAgent {
-  uuid: string;
-  displayName: string;
-  isPlayableCharacter: boolean;
-  role?: {
-    displayName: string;
-  };
-  fullPortrait?: string;
-  displayIcon?: string;
-  backgroundGradientColors: string[];
+export function extractRoles(agents: Agent[]): Role[] {
+  if (!agents || agents.length === 0) {
+    return [];
+  }
+  const unique: Role[] = [];
+  const seen = new Set<Role>();
+  for (const agent of agents) {
+    if (agent.role && !seen.has(agent.role)) {
+      seen.add(agent.role);
+      unique.push(agent.role);
+    }
+  }
+  return unique;
 }
 
-// Wrapper da resposta oficial da API
-export interface ValorantApiResponse {
-  status: number;
-  data: RawAgent[];
+/**
+ * Resolves the primary agent color using the first palette entry or a fallback
+ */
+export function getAgentColor(colors?: string[] | null, fallbackColor = "#ff4655"): string {
+  const primary = colors?.[0];
+  if (!primary) {
+    return fallbackColor;
+  }
+
+  return primary.startsWith("#") ? primary : `#${primary}`;
 }
 
-// --- Logic: Adapter / Mapper ---
-export function mapRawAgentToDomain(raw: RawAgent): Agent | null {
-  // Fail Fast: Proteção dupla (caso a API mude ou o filtro de URL falhe)
-  if (!raw.isPlayableCharacter || !raw.role) {
+/**
+ * Filter agent API response with only needed keys
+ */
+export function agentAdapter(agent: AgentResponse): Agent | null {
+  if (!agent.isPlayableCharacter || !agent.role) {
     return null;
   }
 
-  // Fallback seguro para cores
-  const primaryColor = raw.backgroundGradientColors && raw.backgroundGradientColors.length > 0
-    ? `#${raw.backgroundGradientColors[0]}`
-    : '#333333';
+  // Head icon url (square face icon)
+  const iconUrl = agent.displayIcon || agent.displayIconSmall || agent.fullPortrait || "";
+  // Full splash art url for winner display
+  const portraitUrl = agent.fullPortrait || agent.bustPortrait || agent.displayIcon || "";
 
   return {
-    id: raw.uuid,
-    name: raw.displayName,
-    role: raw.role.displayName as Role,
-    imgUrl: raw.fullPortrait || raw.displayIcon || '', 
-    color: primaryColor
+    id: agent.uuid,
+    name: agent.displayName,
+    role: agent.role.displayName,
+    icon: iconUrl,
+    image: iconUrl,
+    portrait: portraitUrl,
+    color: getAgentColor(agent.backgroundGradientColors),
   };
 }
 
-// --- Logic: Domain Operations ---
+// Filter agents by role
 export function filterAgents(agents: Agent[], activeRoles: Set<Role>): Agent[] {
-  if (activeRoles.size === 0) return agents;
-  return agents.filter(agent => activeRoles.has(agent.role));
+  if (!agents || agents.length === 0) {
+    return [];
+  }
+  if (!activeRoles || activeRoles.size === 0) {
+    return agents;
+  }
+  return agents.filter((agent) => activeRoles.has(agent.role));
 }
 
-export function pickRandom<T>(items: T[]): T | null {
-  if (items.length === 0) return null;
-  const index = Math.floor(Math.random() * items.length);
-  return items[index];
+/**
+ * Return a random float number [0, 1) with crypto security
+ */
+export function getCryptoRandom(): number {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return array[0] / (0xffffffff + 1);
+}
+
+/**
+ * Picks an agent using cryptographic entropy, strictly preventing consecutive repeats
+ */
+export function pickRandomAgent(
+  items: Agent[],
+  lastWinnerId?: string | null,
+): { winner: Agent; index: number } | null {
+  if (!items || items.length === 0) {
+    return null;
+  }
+
+  // Prevent consecutive duplicates whenever more than one candidate exists
+  const pool =
+    lastWinnerId && items.length > 1 ? items.filter((agent) => agent.id !== lastWinnerId) : items;
+
+  const randomIndex = Math.floor(getCryptoRandom() * pool.length);
+  const winner = pool[randomIndex];
+  const realIndex = items.findIndex((agent) => agent.id === winner.id);
+
+  return { winner, index: realIndex };
 }

@@ -4,7 +4,8 @@
     "svelte.svelte-vscode",
     "ardenivanov.svelte-intellisense",
     "bradlc.vscode-tailwindcss",
-    "oxc.oxc-vscode"
+    "oxc.oxc-vscode",
+    "intlayer.intlayer-vs-code-extension"
   ],
   "unwantedRecommendations": []
 }
