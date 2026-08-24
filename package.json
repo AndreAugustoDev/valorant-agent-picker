@@ -14,15 +14,20 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
-    "@astrojs/svelte": "8.0.4",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "6.1.5",
-    "svelte": "^5.46.4",
-    "tailwindcss": "^4.1.18",
+    "@astrojs/svelte": "9.0.1",
+    "@intlayer/svelte-compiler": "^8.12.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "@valpro-labs/valorant-api": "^1.7.0",
+    "astro": "7.2.4",
+    "astro-intlayer": "^8.12.4",
+    "intlayer": "^8.12.4",
+    "svelte": "^5.56.10",
+    "tailwindcss": "^4.3.3",
+    "typesafe-i18n": "^5.27.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "oxfmt": "^0.45.0",
-    "oxlint": "^1.60.0"
+    "oxlint": "^1.79.0"
   }
 }
